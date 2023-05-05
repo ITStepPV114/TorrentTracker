@@ -1,0 +1,98 @@
+﻿<Window x:Class="TorrentTrackerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TorrentTrackerApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="RoundButton">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+      <Grid>             
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="3*"/>            
+        </Grid.RowDefinitions>        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" FontSize="20" FontWeight="Bold" BorderThickness="2"  Margin="2" Content="File Path" Width="95" Height="40"></Label>
+
+            <TextBox x:Name="enterURL"
+                     Grid.Column="1"                      
+                     IsEnabled="True" 
+                     BorderBrush="Gray"
+                     BorderThickness="3"
+                     ToolTip="Enter the reference on item to download" 
+                     Margin="2" 
+                     TextWrapping="Wrap"                      
+                     Foreground="DarkGray" 
+                     FontSize="26"></TextBox>
+            
+            <Button x:Name="buttonAdd"                   
+                    Grid.Column="2" 
+                    Style="{StaticResource RoundButton}"
+                    Background="White" 
+                    BorderBrush="Green" 
+                    BorderThickness="3"
+                    FontSize="25" 
+                    FontWeight="Bold"                    
+                    Margin="2" Click="Button_Add">+</Button>
+            
+            <Button x:Name="buttonDelete"                     
+                    Grid.Column="3" 
+                     Style="{StaticResource RoundButton}"
+                    Background="White" 
+                    BorderBrush="Red" 
+                    BorderThickness="3" 
+                    FontSize="25" 
+                    FontWeight="Bold" 
+                    Margin="2" 
+                    Click="Button_Delete">-</Button>
+        </Grid>
+          
+        <ListView Grid.Row="1" x:Name="downloadList">
+            <ListView.View>
+                <GridView>                    
+                    <GridViewColumn Header="Name" Width="300"></GridViewColumn>
+                    <GridViewColumn Header="Size" Width="90"></GridViewColumn>
+                    <GridViewColumn Header="Speed" Width="90"></GridViewColumn>
+                    <GridViewColumn Header="Start" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="start_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="start_button_Click" FontWeight="Bold" Foreground="Green" Content="V">
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Pause" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="pause_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="pause_button_Click" FontWeight="Bold" Foreground="Yellow" Content="||">
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>                        
+                    </GridViewColumn>
+                    <GridViewColumn Header="Download progress" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar Value="1" Minimum="0" Maximum="100" Width="120" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>                
+            </ListView.View>
+        </ListView>       
+    </Grid>
+</Window>
