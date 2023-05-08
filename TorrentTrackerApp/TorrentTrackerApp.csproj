@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AltoHttp" Version="1.5.2" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     
     <ProjectReference Include="..\DateBase\DateBase.csproj" />
   </ItemGroup>
