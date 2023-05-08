@@ -85,7 +85,7 @@ namespace TorrentTrackerApp
                         db.Add(newUser);
                         db.SaveChanges();
 
-                        MessageBox.Show($"You autorized");                       
+                        MessageBox.Show($"You autorized");        
                     }
                 }
             }
