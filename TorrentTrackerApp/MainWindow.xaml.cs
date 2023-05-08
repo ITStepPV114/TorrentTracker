@@ -18,10 +18,12 @@ namespace TorrentTrackerApp
 {
     public partial class MainWindow : Window
     {
+        ViewModel viewModel = new ViewModel();
         HttpDownloader httpDownloader;
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext= viewModel;
         }
 
         private void Button_Delete(object sender, RoutedEventArgs e)
@@ -31,9 +33,13 @@ namespace TorrentTrackerApp
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-            if()
-            CurrentTorrentFile file = new CurrentTorrentFile();
-            httpDownloader
+            if (enterURL.Text != "")
+            {
+                CurrentTorrentFile file = new CurrentTorrentFile();
+                
+                file.Name = enterURL.Text.Split(new char[] { '/' }).Last();
+                viewModel.Add(file);
+            }
         }
 
         private void start_button_Click(object sender, RoutedEventArgs e)
