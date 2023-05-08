@@ -11,7 +11,8 @@ namespace TorrentTrackerApp
     [AddINotifyPropertyChangedInterface]
     public class ViewModel
     {
-        ObservableCollection<CurrentTorrentFile> torrents;
+        private ObservableCollection<CurrentTorrentFile> torrents;
+        public IEnumerable<CurrentTorrentFile> Torrents => torrents;
         public ViewModel() 
         {
             torrents= new ObservableCollection<CurrentTorrentFile>();
