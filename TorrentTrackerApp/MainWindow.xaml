@@ -65,7 +65,7 @@
         <ListView Grid.Row="1" x:Name="downloadList">
             <ListView.View>
                 <GridView>                    
-                    <GridViewColumn Header="Name" Width="300"></GridViewColumn>
+                    <GridViewColumn Header="Name" Width="250"></GridViewColumn>
                     <GridViewColumn Header="Size" Width="90"></GridViewColumn>
                     <GridViewColumn Header="Speed" Width="90"></GridViewColumn>
                     <GridViewColumn Header="Start" Width="50">
@@ -75,7 +75,7 @@
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>                    
                     <GridViewColumn Header="Pause" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -83,6 +83,14 @@
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>                        
+                    </GridViewColumn>
+                    <GridViewColumn Header="Сontinue" Width="55">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click" FontWeight="Bold" Foreground="Green" Content="V">
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Download progress" Width="200">
                         <GridViewColumn.CellTemplate>
