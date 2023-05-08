@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AltoHttp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace TorrentTrackerApp
 {
     public partial class MainWindow : Window
     {
+        HttpDownloader httpDownloader;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +31,9 @@ namespace TorrentTrackerApp
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-
+            if()
+            CurrentTorrentFile file = new CurrentTorrentFile();
+            httpDownloader
         }
 
         private void start_button_Click(object sender, RoutedEventArgs e)
