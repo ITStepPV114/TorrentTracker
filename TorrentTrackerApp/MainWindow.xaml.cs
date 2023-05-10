@@ -46,6 +46,7 @@ namespace TorrentTrackerApp
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
             httpDownloader = new HttpDownloader(enterURL.Text, $@"C:\Users\dev\Desktop\{System.IO.Path.GetFileName(enterURL.Text)}");
+
             httpDownloader.Start();
         }
 
