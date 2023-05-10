@@ -12,7 +12,7 @@ namespace TorrentTrackerApp
     {
         public string Name { get; set; }
         public double Size { get; set; }
-        public double Speed { get; set; }
+        public string Speed { get; set; }
         public double DownloadProgress { get; set; }
     }
 }
