@@ -39,12 +39,14 @@ namespace TorrentTrackerApp
                 
                 file.Name = enterURL.Text.Split(new char[] { '/' }).Last();
                 viewModel.Add(file);
+                //downloadList.Items.Add(file);
             }
         }
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-
+            httpDownloader = new HttpDownloader(enterURL.Text, $@"C:\Users\dev\Desktop\{System.IO.Path.GetFileName(enterURL.Text)}");
+            httpDownloader.Start();
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)
