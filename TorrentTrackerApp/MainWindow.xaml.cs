@@ -28,7 +28,10 @@ namespace TorrentTrackerApp
 
         private void Button_Delete(object sender, RoutedEventArgs e)
         {
-
+            if (downloadList.SelectedItem != null)
+            {
+                downloadList.Items.Remove(downloadList.SelectedItem);
+            }
         }
 
         private void Button_Add(object sender, RoutedEventArgs e)
@@ -46,8 +49,24 @@ namespace TorrentTrackerApp
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
             httpDownloader = new HttpDownloader(enterURL.Text, $@"C:\Users\dev\Desktop\{System.IO.Path.GetFileName(enterURL.Text)}");
-
+            httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
+            httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
             httpDownloader.Start();
+        }
+
+        private void HttpDownloader_DownloadCompleted(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            if(downloadList.SelectedItem!= null)
+            {
+                var torrentFile = viewModel.Torrents.ElementAt(downloadList.SelectedIndex);
+                torrentFile.DownloadProgress = e.Progress;
+                torrentFile.Speed = $"{e.SpeedInBytes / 1024d / 1024d} MB/s";
+            }
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)
