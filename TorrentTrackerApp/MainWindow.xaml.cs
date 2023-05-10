@@ -56,7 +56,7 @@ namespace TorrentTrackerApp
 
         private void HttpDownloader_DownloadCompleted(object? sender, EventArgs e)
         {
-            
+            MessageBox.Show("Download Completed!");
         }
 
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
