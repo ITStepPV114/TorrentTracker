@@ -50,7 +50,6 @@ namespace TorrentTrackerApp
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
             httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
             httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
