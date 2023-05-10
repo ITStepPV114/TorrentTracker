@@ -84,18 +84,18 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>                        
                     </GridViewColumn>
-                    <GridViewColumn Header="Сontinue" Width="55">
+                    <GridViewColumn Header="Сontinue" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click" FontWeight="Bold" Foreground="Green" Content="V">
+                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click" FontWeight="Bold" Foreground="Green" Content=">>" FontSize="15">
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Download progress" Width="200" DisplayMemberBinding="{Binding DownloadProgress}">
+                    <GridViewColumn Header="Download progress" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Value="1" Minimum="0" Maximum="100" Width="120" />
+                                <ProgressBar x:Name="progresBar" Value="{Binding DownloadProgress}" Minimum="1" Maximum="100" Width="180" Height="10" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

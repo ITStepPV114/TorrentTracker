@@ -38,8 +38,8 @@ namespace TorrentTrackerApp
                 CurrentTorrentFile file = new CurrentTorrentFile();
                 
                 file.Name = enterURL.Text.Split(new char[] { '/' }).Last();
-                viewModel.Add(file);
-                //downloadList.Items.Add(file);
+                //viewModel.Add(file);
+                downloadList.Items.Add(file);
             }
         }
 
