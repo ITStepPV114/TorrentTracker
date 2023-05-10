@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AltoHttp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,14 @@ using System.Windows.Shapes;
 
 namespace TorrentTrackerApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModel viewModel = new ViewModel();
+        HttpDownloader httpDownloader;
         public MainWindow()
         {
             InitializeComponent();
-            //Test
+            this.DataContext= viewModel;
         }
 
         private void Button_Delete(object sender, RoutedEventArgs e)
@@ -33,12 +33,20 @@ namespace TorrentTrackerApp
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-
+            if (enterURL.Text != "")
+            {
+                CurrentTorrentFile file = new CurrentTorrentFile();
+                
+                file.Name = enterURL.Text.Split(new char[] { '/' }).Last();
+                viewModel.Add(file);
+                //downloadList.Items.Add(file);
+            }
         }
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-
+            httpDownloader = new HttpDownloader(enterURL.Text, $@"C:\Users\dev\Desktop\{System.IO.Path.GetFileName(enterURL.Text)}");
+            httpDownloader.Start();
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)

@@ -11,7 +11,8 @@ namespace TorrentTrackerApp
     [AddINotifyPropertyChangedInterface]
     public class ViewModel
     {
-        ObservableCollection<CurrentTorrentFile> torrents;
+        private ObservableCollection<CurrentTorrentFile> torrents;
+        public IEnumerable<CurrentTorrentFile> Torrents => torrents;
         public ViewModel() 
         {
             torrents= new ObservableCollection<CurrentTorrentFile>();
@@ -20,13 +21,5 @@ namespace TorrentTrackerApp
         {
             torrents.Add(file);
         }
-    }
-    [AddINotifyPropertyChangedInterface]
-    public class CurrentTorrentFile
-    {
-        public string Name { get; set; }
-        public double Size { get; set; }
-        public double Speed { get; set; }
-        public double DownloadProgress { get; set; }
     }
 }

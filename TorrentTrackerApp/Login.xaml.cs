@@ -77,16 +77,15 @@ namespace TorrentTrackerApp
             {
                 using (StoreUserContext db = new StoreUserContext())
                 {
-                    var check = db.Users.FirstOrDefault();
+                    //var check = db.Users.FirstOrDefault();
 
-                    if (check == null)
-                    {
+                    
                         User newUser = new User() { LoginUser = login_Box.Text, PaswwordUser = password_Box.Text };
                         db.Add(newUser);
                         db.SaveChanges();
 
-                        MessageBox.Show($"You autorized");                       
-                    }
+                        MessageBox.Show($"You autorized");        
+                    
                 }
             }
             else

@@ -62,12 +62,12 @@
                     Click="Button_Delete">-</Button>
         </Grid>
           
-        <ListView Grid.Row="1" x:Name="downloadList">
+        <ListView Grid.Row="1" x:Name="downloadList" DisplayMemberPath="{Binding Torrents}">
             <ListView.View>
                 <GridView>                    
-                    <GridViewColumn Header="Name" Width="250"></GridViewColumn>
-                    <GridViewColumn Header="Size" Width="90"></GridViewColumn>
-                    <GridViewColumn Header="Speed" Width="90"></GridViewColumn>
+                    <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="Size" Width="90" DisplayMemberBinding="{Binding Size}"></GridViewColumn>
+                    <GridViewColumn Header="Speed" Width="90" DisplayMemberBinding="{Binding Speed}"></GridViewColumn>
                     <GridViewColumn Header="Start" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -92,7 +92,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Download progress" Width="200">
+                    <GridViewColumn Header="Download progress" Width="200" DisplayMemberBinding="{Binding DownloadProgress}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ProgressBar Value="1" Minimum="0" Maximum="100" Width="120" />
