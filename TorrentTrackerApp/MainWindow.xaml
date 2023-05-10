@@ -87,7 +87,8 @@
                     <GridViewColumn Header="Сontinue" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click" FontWeight="Bold" Foreground="Green" Content=">>" FontSize="15">
+                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click">
+                                    <Image Source="/Image/Play.png"></Image>                                                                     
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
