@@ -65,7 +65,7 @@ namespace TorrentTrackerApp
             {
                 var torrentFile = viewModel.Torrents.ElementAt(downloadList.SelectedIndex);
                 torrentFile.DownloadProgress = e.Progress;
-                torrentFile.Speed = $"{e.SpeedInBytes / 1024d / 1024d} MB/s";
+                torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
             }
         }
 
