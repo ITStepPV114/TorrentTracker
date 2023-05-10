@@ -1,6 +1,7 @@
 ﻿using AltoHttp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace TorrentTrackerApp
             {
                 CurrentTorrentFile file = new CurrentTorrentFile();
                 
-                file.Name = enterURL.Text.Split(new char[] { '/' }).Last();
+                file.Name = enterURL.Text.Split(new char[] {'/'}).Last();
                 //viewModel.Add(file);
                 downloadList.Items.Add(file);
             }
@@ -48,7 +49,8 @@ namespace TorrentTrackerApp
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-            httpDownloader = new HttpDownloader(enterURL.Text, $@"C:\Users\dev\Desktop\{System.IO.Path.GetFileName(enterURL.Text)}");
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
             httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
             httpDownloader.Start();
@@ -61,9 +63,11 @@ namespace TorrentTrackerApp
 
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
+            FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
             if(downloadList.SelectedItem!= null)
             {
                 var torrentFile = viewModel.Torrents.ElementAt(downloadList.SelectedIndex);
+                torrentFile.Size = fileInfo.Length / 1024d / 1024d;
                 torrentFile.DownloadProgress = e.Progress;
                 torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
             }
