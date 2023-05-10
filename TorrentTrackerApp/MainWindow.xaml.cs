@@ -66,6 +66,7 @@ namespace TorrentTrackerApp
             FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
             if(downloadList.SelectedItem!=null)
             {
+                
                 var torrentFile = viewModel.Torrents.ElementAt(downloadList.SelectedIndex);
                 torrentFile.Size = fileInfo.Length / 1024d / 1024d;
                 torrentFile.DownloadProgress = e.Progress;
