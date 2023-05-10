@@ -76,7 +76,7 @@ namespace TorrentTrackerApp
 
         private void сontinue_button_Click(object sender, RoutedEventArgs e)
         {
-
+            httpDownloader.Resume();
         }
     }
 }
