@@ -21,6 +21,7 @@ namespace TorrentTrackerApp
     {
         ViewModel viewModel = new ViewModel();
         HttpDownloader httpDownloader;
+        int selectedIndex;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace TorrentTrackerApp
                 CurrentTorrentFile file = new CurrentTorrentFile();
                 
                 file.Name = enterURL.Text.Split(new char[] {'/'}).Last();
-                //viewModel.Add(file);
+                
                 downloadList.Items.Add(file);
             }
         }
@@ -53,7 +54,12 @@ namespace TorrentTrackerApp
             httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
             httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
-            httpDownloader.Start();
+            
+            if(downloadList.SelectedItem != null)
+            {
+                selectedIndex = downloadList.SelectedIndex;
+                httpDownloader.Start();
+            }
         }
 
         private void HttpDownloader_DownloadCompleted(object? sender, EventArgs e)
@@ -64,14 +70,19 @@ namespace TorrentTrackerApp
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
-            if(downloadList.SelectedItem!= null)
-            {
-                
-                var torrentFile = viewModel.Torrents.ElementAt(downloadList.SelectedIndex);
-                torrentFile.Size = fileInfo.Length / 1024d / 1024d;
-                torrentFile.DownloadProgress = e.Progress;
-                torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
-            }
+            //if(downloadList.SelectedItem!=null)
+            //{
+
+            var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
+            torrent.Size = fileInfo.Length / 1024d / 1024d;
+            torrent.DownloadProgress = e.Progress;
+            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
+
+            //var torrentFile = viewModel.Torrents.ElementAt(selectedIndex);
+            //torrentFile.Size = fileInfo.Length / 1024d / 1024d;
+            //torrentFile.DownloadProgress = e.Progress;
+            //torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
+            //}
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)
