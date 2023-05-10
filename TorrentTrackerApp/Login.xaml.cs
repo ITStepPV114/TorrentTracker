@@ -3,6 +3,7 @@ using DateBase.Service;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,18 +23,16 @@ namespace TorrentTrackerApp
     /// Логика взаимодействия для Login.xaml
     /// </summary>
     public partial class Login : Window
-    {        
-        
+    {
+        private StoreUserContext db = null;
         public Login()
         {
-            //init iniy
+           
             InitializeComponent();
         }
 
-        private void button_login_Click(object sender, RoutedEventArgs e)
+        private async void button_login_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(login_Box.Text);
-
             if (password_Box.Text.Equals("") && login_Box.Text.Equals(""))
             {
                 MessageBox.Show($"Fields login password and  are empty");
@@ -53,9 +52,10 @@ namespace TorrentTrackerApp
                 
                 User check = null;
 
-                using (StoreUserContext db = new StoreUserContext())
+                using ( db = new StoreUserContext())
                 {
-                    check = db.Users.Where(x=>x.LoginUser==login_Box.Text && x.PaswwordUser==password_Box.Text).FirstOrDefault();
+                     check = await db.Users.Where(x=>x.LoginUser==login_Box.Text && x.PaswwordUser==password_Box.Text).FirstOrDefaultAsync();                 
+                    
                 }
 
                 if (check != null)
@@ -71,27 +71,32 @@ namespace TorrentTrackerApp
             }
         }
 
-        private void button_regist_Click(object sender, RoutedEventArgs e)
+        private async void button_regist_Click(object sender, RoutedEventArgs e)
         {
             if (login_Box.Text!= "" && password_Box.Text!= "" || password_Box.Text != "" || login_Box.Text != "")
             {
-                using (StoreUserContext db = new StoreUserContext())
+                using ( db = new StoreUserContext())
                 {
-                    //var check = db.Users.FirstOrDefault();
+                                 
+                    User newUser = new User() { LoginUser = login_Box.Text, PaswwordUser = password_Box.Text };
+                    //db.Add(newUser);
+                    await db.AddAsync(newUser);
+                    await db.SaveChangesAsync();
 
-                    
-                        User newUser = new User() { LoginUser = login_Box.Text, PaswwordUser = password_Box.Text };
-                        db.Add(newUser);
-                        db.SaveChanges();
-
-                        MessageBox.Show($"You autorized");        
-                    
+                    MessageBox.Show($"You autorized");                    
                 }
             }
             else
             {
                 MessageBox.Show($"Fields login password and  are empty");
             }                      
+        }
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            if (db!=null)
+            {
+                db.Dispose();
+            }
         }
     }
 }
