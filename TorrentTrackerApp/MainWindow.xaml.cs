@@ -42,7 +42,7 @@ namespace TorrentTrackerApp
                 CurrentTorrentFile file = new CurrentTorrentFile();
                 
                 file.Name = enterURL.Text.Split(new char[] {'/'}).Last();
-                //viewModel.Add(file);
+                
                 downloadList.Items.Add(file);
             }
         }
@@ -64,7 +64,7 @@ namespace TorrentTrackerApp
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
-            if(downloadList.SelectedItem!= null)
+            if(downloadList.SelectedItem!=null)
             {
                 var torrentFile = viewModel.Torrents.ElementAt(downloadList.SelectedIndex);
                 torrentFile.Size = fileInfo.Length / 1024d / 1024d;
