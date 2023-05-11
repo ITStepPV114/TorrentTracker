@@ -50,9 +50,13 @@ namespace TorrentTrackerApp
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
+            //Беремо шлях робочого стола
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //Завантажуємо і вказуємо що вантажимо і куди
             httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
+            //змінюємо статус загрузки. У нашому випадку прогресбару
             httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
+            //Підписуємося на подію, яка говорить, що скачування відбулося
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
             
             if(downloadList.SelectedItem != null)
@@ -70,19 +74,12 @@ namespace TorrentTrackerApp
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
-            //if(downloadList.SelectedItem!=null)
-            //{
-
+           
+            //звертаємося до елементів списку по індексу, який зберіг раніше
             var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
             torrent.Size = fileInfo.Length / 1024d / 1024d;
             torrent.DownloadProgress = e.Progress;
-            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
-
-            //var torrentFile = viewModel.Torrents.ElementAt(selectedIndex);
-            //torrentFile.Size = fileInfo.Length / 1024d / 1024d;
-            //torrentFile.DownloadProgress = e.Progress;
-            //torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
-            //}
+            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";            
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)
