@@ -73,11 +73,12 @@ namespace TorrentTrackerApp
 
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
+            //FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
            
             //звертаємося до елементів списку по індексу, який зберіг раніше
             var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
-            torrent.Size = fileInfo.Length / 1024d / 1024d;
+            //torrent.Size = fileInfo.Length / 1024d / 1024d;
+            torrent.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
             torrent.DownloadProgress = e.Progress;
             torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";            
         }
