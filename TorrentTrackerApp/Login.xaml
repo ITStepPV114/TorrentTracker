@@ -16,9 +16,9 @@
         </Style>
     </Window.Resources>
     <Canvas Background="LightSkyBlue">
-        <Label Content="User name" Foreground="Gray" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Left="64" Height="50" Width="236" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="15" RenderTransformOrigin="0.425,0.681" />
+        <Label Content="User name" Foreground="Black" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Left="64" Height="50" Width="236" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="15" RenderTransformOrigin="0.425,0.681" />
         <TextBox x:Name="login_Box" BorderBrush="Blue" BorderThickness="2" Height="20" Width="150" Canvas.Left="75" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="65" RenderTransformOrigin="0.5,-0.099" Background="LightGray"/>
-        <Label Content="Password" Foreground="Gray" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Left="75" Canvas.Top="95" Height="50" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+        <Label Content="Password" Foreground="Black" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Left="75" Canvas.Top="95" Height="50" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
         <TextBox x:Name="password_Box" BorderBrush="Blue" BorderThickness="2" Height="20" Width="150" Canvas.Left="75" Canvas.Top="145" HorizontalAlignment="Left" VerticalAlignment="Center" Background="LightGray"/>
         <Button Style="{StaticResource RoundButton}"  x:Name="button_login" Height="60" Width="150" Canvas.Left="75" Canvas.Top="189" Content="Login" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Background="CornflowerBlue" FontWeight="Bold" Click="button_login_Click" RenderTransformOrigin="0.5,0.084"/>
         <Button Style="{StaticResource RoundButton}" x:Name="button_regist" Foreground="Firebrick" Content="Sign up" FontSize="25" Height="60" Width="150" Canvas.Left="75" Canvas.Top="269" RenderTransformOrigin="0.487,0.201" Background="Gold" FontWeight="Bold" Click="button_regist_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>

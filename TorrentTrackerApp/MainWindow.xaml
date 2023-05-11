@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>        
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>
@@ -35,10 +35,11 @@
                      BorderBrush="Gray"
                      BorderThickness="3"
                      ToolTip="Enter the reference on item to download" 
-                     Margin="2" 
+                     Margin="5" 
                      TextWrapping="Wrap"                      
                      Foreground="DarkGray" 
-                     FontSize="26"></TextBox>
+                     FontSize="15"
+                     Height="50"></TextBox>
             
             <Button x:Name="buttonAdd"                   
                     Grid.Column="2" 
@@ -71,15 +72,17 @@
                     <GridViewColumn Header="Start" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="start_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="start_button_Click" FontWeight="Bold" Foreground="Green" Content="V">
+                                <Button x:Name="start_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="start_button_Click" VerticalAlignment="Center">
+                                    <Image Source="/Image/Play.png"></Image>
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>                    
+                    </GridViewColumn>
                     <GridViewColumn Header="Pause" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="pause_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="pause_button_Click" FontWeight="Bold" Foreground="Yellow" Content="||">
+                                <Button x:Name="pause_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="pause_button_Click" VerticalAlignment="Center">
+                                    <Image Source="/Image/Pause.jpg"></Image>
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>                        
@@ -87,8 +90,8 @@
                     <GridViewColumn Header="Сontinue" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click">
-                                    <Image Source="/Image/Play.png"></Image>                                                                     
+                                <Button x:Name="сontinue_button" Width="20" Height="20" Background="Transparent" BorderBrush="Transparent" Click="сontinue_button_Click" VerticalAlignment="Center">
+                                    <Image Source="/Image/Continue.png"></Image>                                                                     
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
