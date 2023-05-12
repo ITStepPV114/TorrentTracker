@@ -14,18 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
 
 namespace TorrentTrackerApp
 {
     public partial class MainWindow : Window
     {
         ViewModel viewModel = new ViewModel();
-        HttpDownloader httpDownloader;
-        int selectedIndex;
+        HttpDownloader httpDownloader;        
+        int Idbutton;
+        CurrentTorrentFile selectedCurrentFile;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext= viewModel;
+            this.DataContext= viewModel;            
         }
 
         private void Button_Delete(object sender, RoutedEventArgs e)
@@ -42,7 +45,7 @@ namespace TorrentTrackerApp
             {
                 CurrentTorrentFile file = new CurrentTorrentFile();
                 
-                file.Name = enterURL.Text.Split(new char[] {'/'}).Last();
+                file.Name = enterURL.Text.Split(new char[] {'/'}).Last();                
                 
                 downloadList.Items.Add(file);
             }
@@ -50,10 +53,13 @@ namespace TorrentTrackerApp
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            downloadList.SelectedItem.Equals(true);
-
+            Button btn =sender as Button;
+            selectedCurrentFile = viewModel.Torrents.FirstOrDefault((CurrentTorrentFile)btn.DataContext);
+            downloadList.SelectedItem = selectedCurrentFile;
+            //var obj2 = downloadList.GetValue(obj.Id);
+            //viewModel.Torrents.ElementAt()
+            //Torrents
+            MessageBox.Show($"{selectedCurrentFile.Name}");
             //Беремо шлях робочого стола
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //Завантажуємо і вказуємо що вантажимо і куди
@@ -63,11 +69,7 @@ namespace TorrentTrackerApp
             //Підписуємося на подію, яка говорить, що скачування відбулося
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
 
-            if (downloadList.SelectedItem != null)
-            {
-                selectedIndex = downloadList.SelectedIndex;
-                httpDownloader.Start();
-            }
+            httpDownloader.Start();
 
         }
 
@@ -79,13 +81,15 @@ namespace TorrentTrackerApp
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             //FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
-           
-            //звертаємося до елементів списку по індексу, який зберіг раніше
-            var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
-            //torrent.Size = fileInfo.Length / 1024d / 1024d;
+
+            //звертаємося до елементів списку по індексу, який зберіг раніше             
+
+            //var torrent = (CurrentTorrentFile)downloadList.Items;
+            var torrent = (CurrentTorrentFile)downloadList.SelectedItem;
+            //MessageBox.Show(sender.ToString());
             torrent.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
             torrent.DownloadProgress = e.Progress;
-            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";            
+            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)

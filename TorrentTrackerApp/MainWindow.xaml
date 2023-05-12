@@ -15,7 +15,7 @@
             </Style.Resources>
         </Style>
     </Window.Resources>
-      <Grid>             
+      <Grid x:Name="Root">             
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="3*"/>            
