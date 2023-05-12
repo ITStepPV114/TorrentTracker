@@ -53,9 +53,11 @@ namespace TorrentTrackerApp
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-            Button btn =sender as Button;
-            selectedCurrentFile = viewModel.Torrents.FirstOrDefault((CurrentTorrentFile)btn.DataContext);
+            Button btn = sender as Button;
+            //selectedCurrentFile = viewModel.Torrents.FirstOrDefault((CurrentTorrentFile)btn.DataContext);
+            selectedCurrentFile = downloadList.SelectedItems[0] as CurrentTorrentFile;
             downloadList.SelectedItem = selectedCurrentFile;
+            selectedCurrentFile
             //var obj2 = downloadList.GetValue(obj.Id);
             //viewModel.Torrents.ElementAt()
             //Torrents
@@ -85,7 +87,9 @@ namespace TorrentTrackerApp
             //звертаємося до елементів списку по індексу, який зберіг раніше             
 
             //var torrent = (CurrentTorrentFile)downloadList.Items;
-            var torrent = (CurrentTorrentFile)downloadList.SelectedItem;
+            var torrentFile = (HttpDownloader)sender;
+            torrentFile.
+            var torrent = (CurrentTorrentFile)viewModel.Torrents;
             //MessageBox.Show(sender.ToString());
             torrent.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
             torrent.DownloadProgress = e.Progress;
