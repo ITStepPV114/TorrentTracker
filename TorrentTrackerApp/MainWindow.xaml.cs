@@ -50,20 +50,25 @@ namespace TorrentTrackerApp
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
+            
+
+            downloadList.SelectedItem.Equals(true);
+
             //Беремо шлях робочого стола
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //Завантажуємо і вказуємо що вантажимо і куди
             httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
-            //змінюємо статус загрузки. У нашому випадку прогресбару
+            //змінюємо статус загрузки. У нашому випадку прогресбару            
             httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
             //Підписуємося на подію, яка говорить, що скачування відбулося
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
-            
-            if(downloadList.SelectedItem != null)
+
+            if (downloadList.SelectedItem != null)
             {
                 selectedIndex = downloadList.SelectedIndex;
                 httpDownloader.Start();
             }
+
         }
 
         private void HttpDownloader_DownloadCompleted(object? sender, EventArgs e)
