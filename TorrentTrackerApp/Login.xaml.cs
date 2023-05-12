@@ -27,6 +27,8 @@ namespace TorrentTrackerApp
     public partial class Login : Window
     {
         private static ILoginService _loginService = new LoginService();
+
+        StoreUserContext db = null;
         public Login()
         {
            
@@ -89,6 +91,14 @@ namespace TorrentTrackerApp
             {
                 MessageBox.Show($"Fields login password and  are empty");
             }
-        }     
+        }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            if (db != null)
+            {
+                db.Dispose();
+            }
+        }
     }
 }

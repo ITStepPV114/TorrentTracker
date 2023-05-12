@@ -32,7 +32,7 @@ namespace DateBase.Service
 
                 User newUser = new User() { LoginUser = username, PaswwordUser = password };
 
-                db.AddAsync(newUser);
+                db.Add(newUser);
                 db.SaveChanges();
 
                 return true;
