@@ -14,14 +14,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Controls;
 
 namespace TorrentTrackerApp
 {
     public partial class MainWindow : Window
     {
         ViewModel viewModel = new ViewModel();
-        HttpDownloader httpDownloader;
-        int selectedIndex;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,61 +40,41 @@ namespace TorrentTrackerApp
             if (enterURL.Text != "")
             {
                 CurrentTorrentFile file = new CurrentTorrentFile();
-                
+                var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                file.httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
+                file.httpDownloader.ProgressChanged += file.HttpDownloader_ProgressChanged;
+                file.httpDownloader.DownloadCompleted+= file.HttpDownloader_DownloadCompleted;
                 file.Name = enterURL.Text.Split(new char[] {'/'}).Last();
-                
                 downloadList.Items.Add(file);
             }
         }
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            downloadList.SelectedItem.Equals(true);
-
-            //Беремо шлях робочого стола
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //Завантажуємо і вказуємо що вантажимо і куди
-            httpDownloader = new HttpDownloader(enterURL.Text, System.IO.Path.Combine(path, System.IO.Path.GetFileName(enterURL.Text)));
-            //змінюємо статус загрузки. У нашому випадку прогресбару            
-            httpDownloader.ProgressChanged += HttpDownloader_ProgressChanged;
-            //Підписуємося на подію, яка говорить, що скачування відбулося
-            httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
-
-            if (downloadList.SelectedItem != null)
-            {
-                selectedIndex = downloadList.SelectedIndex;
-                httpDownloader.Start();
-            }
-
-        }
-
-        private void HttpDownloader_DownloadCompleted(object? sender, EventArgs e)
-        {
-            MessageBox.Show("Download Completed!");
-        }
-
-        private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
-        {
-            //FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
-           
-            //звертаємося до елементів списку по індексу, який зберіг раніше
-            var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
-            //torrent.Size = fileInfo.Length / 1024d / 1024d;
-            torrent.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
-            torrent.DownloadProgress = e.Progress;
-            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";            
+            var button = (Button)sender;
+            var context = (CurrentTorrentFile)button.DataContext;
+            int rowIndex = downloadList.Items.IndexOf(context);
+            var currentFile = (CurrentTorrentFile)downloadList.Items[rowIndex];
+            currentFile.IsDownloading = true;
+            currentFile.httpDownloader.Start();
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)
         {
-            httpDownloader.Pause();
+            var button = (Button)sender;
+            var context = (CurrentTorrentFile)button.DataContext;
+            int rowIndex = downloadList.Items.IndexOf(context);
+            var currentFile = (CurrentTorrentFile)downloadList.Items[rowIndex];
+            currentFile.httpDownloader.Pause();
         }
 
         private void сontinue_button_Click(object sender, RoutedEventArgs e)
         {
-            httpDownloader.Resume();
+            var button = (Button)sender;
+            var context = (CurrentTorrentFile)button.DataContext;
+            int rowIndex = downloadList.Items.IndexOf(context);
+            var currentFile = (CurrentTorrentFile)downloadList.Items[rowIndex];
+            currentFile.httpDownloader.Resume();
         }
     }
 }
