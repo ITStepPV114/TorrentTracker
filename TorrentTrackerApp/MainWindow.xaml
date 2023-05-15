@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:TorrentTrackerApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+        <Window.DataContext>
+            <local:ViewModel></local:ViewModel>
+        </Window.DataContext>
     <Window.Resources>
         <Style TargetType="Button" x:Key="RoundButton">
             <Style.Resources>
