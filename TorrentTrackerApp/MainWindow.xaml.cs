@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Controls;
 
 namespace TorrentTrackerApp
 {
@@ -50,9 +51,12 @@ namespace TorrentTrackerApp
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
+            var button = (Button)sender;
+            var context = (CurrentTorrentFile)button.DataContext;
+            int rowIndex = downloadList.Items.IndexOf(context);
+            viewModel.Torrents.ElementAt(rowIndex).IsDownloading = true;
             
-
-            downloadList.SelectedItem.Equals(true);
+            
 
             //Беремо шлях робочого стола
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -63,11 +67,11 @@ namespace TorrentTrackerApp
             //Підписуємося на подію, яка говорить, що скачування відбулося
             httpDownloader.DownloadCompleted += HttpDownloader_DownloadCompleted;
 
-            if (downloadList.SelectedItem != null)
-            {
-                selectedIndex = downloadList.SelectedIndex;
-                httpDownloader.Start();
-            }
+            //if (downloadList.SelectedItem != null)
+            //{
+                //selectedIndex = downloadList.SelectedIndex;
+            httpDownloader.Start();
+            //}
 
         }
 
@@ -78,14 +82,54 @@ namespace TorrentTrackerApp
 
         private void HttpDownloader_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            //FileInfo fileInfo = new FileInfo(httpDownloader.FullFileName);
-           
+            //var torrentFiles = downloadList.Items;
+            //foreach (ListViewItem torrentFile in torrentFiles)
+            //{
+            //    if(torrentFile.)
+            //    if(torrentFile.AreAnyTouchesCapturedWithin)
+            //    {
+            //        var itemChildrens = torrentFile.FindLogicalChildren<ListViewItem>();
+            //        foreach (var item in itemChildrens)
+            //        {
+            //            if(item.AreAnyTouchesCaptured)
+            //            {
+            //                CurrentTorrentFile currentFile = (CurrentTorrentFile)torrentFile;
+            //                torrentFile.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
+            //                torrentFile.DownloadProgress = e.Progress;
+            //                torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
+            //            }
+            //        }
+            //    }
+            //}
+
+
+            //var sourceCollection = torrentFiles.SourceCollection;
+            //sourceCollection;
+            //ListViewItem litem = 
+
+            //var torrentFiles = downloadList.Items;
+            //foreach (CurrentTorrentFile torrentFile in torrentFiles)
+            //{
+            //    if(torrentFile.IsDownloading = true)
+            //    {
+            //        torrentFile.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
+            //        torrentFile.DownloadProgress = e.Progress;
+            //        torrentFile.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
+            //    }
+            //}
+
             //звертаємося до елементів списку по індексу, який зберіг раніше
-            var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
-            //torrent.Size = fileInfo.Length / 1024d / 1024d;
-            torrent.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
-            torrent.DownloadProgress = e.Progress;
-            torrent.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";            
+            foreach (CurrentTorrentFile item in viewModel.Torrents)
+            {
+                if(item.IsDownloading)
+                {
+                    //var torrent = (CurrentTorrentFile)downloadList.Items[selectedIndex];
+                    item.Size = Math.Round(httpDownloader.Info.Length / 1024d / 1024d, 2, MidpointRounding.AwayFromZero);
+                    item.DownloadProgress = e.Progress;
+                    item.Speed = $"{(e.SpeedInBytes / 1024d / 1024d).ToString("0.00")} MB/s";
+                }
+            }
+            
         }
 
         private void pause_button_Click(object sender, RoutedEventArgs e)
